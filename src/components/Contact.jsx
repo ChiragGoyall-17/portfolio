@@ -4,7 +4,11 @@ import { Mail, Phone, MapPin, Send, CheckCircle2, Loader2 } from 'lucide-react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-  const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success'
+  const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
+  const formspreeId = import.meta.env.VITE_FORMSPREE_ID;
+  const formEndpoint = formspreeId?.startsWith('http')
+    ? formspreeId
+    : `https://formspree.io/f/${formspreeId}`;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,7 +23,11 @@ export default function Contact() {
     try {
       // FormSubmit.co — using secure hash (hides your raw email from scrapers)
       // Form is already activated — submissions go straight to chiraggoyal985@gmail.com
-      const response = await fetch('https://formsubmit.co/ajax/chiraggoyal985@gmail.com', {
+      if (!formspreeId || formspreeId === 'YOUR_FORMSPREE_ID_HERE') {
+        throw new Error('Missing VITE_FORMSPREE_ID');
+      }
+
+      const response = await fetch(formEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,12 +39,10 @@ export default function Contact() {
           subject: formData.subject || 'Portfolio Contact — ' + formData.name,
           message: formData.message,
           _replyto: formData.email,
-          _captcha: 'false',
         })
       });
 
-      const result = await response.json();
-      if (result.success === 'true' || result.success === true) {
+      if (response.ok) {
         setStatus('success');
         setFormData({ name: '', email: '', subject: '', message: '' });
         setTimeout(() => setStatus('idle'), 4000);
@@ -45,7 +51,7 @@ export default function Contact() {
         setTimeout(() => setStatus('idle'), 3000);
       }
     } catch (err) {
-      console.error('FormSubmit error:', err);
+      console.error('Formspree error:', err);
       setStatus('error');
       setTimeout(() => setStatus('idle'), 3000);
     }
