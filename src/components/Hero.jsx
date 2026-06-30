@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, MapPin, ArrowRight, Terminal, FileCode, ChevronRight, Play, Sparkles } from 'lucide-react';
+import HeroBackground3D from './HeroBackground3D';
 
 const roles = [
   'Full-Stack Developer',
@@ -121,15 +122,18 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden bg-slate-950"
     >
+      {/* 3D WebGL Particle Background */}
+      <HeroBackground3D />
+
       {/* Background Animated Glows */}
-      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-indigo-600/10 blur-3xl animate-pulse-slow" />
-      <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-96 h-96 rounded-full bg-purple-600/10 blur-3xl animate-pulse-slow" />
+      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-indigo-600/10 blur-3xl animate-pulse-slow pointer-events-none z-0" />
+      <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-96 h-96 rounded-full bg-purple-600/10 blur-3xl animate-pulse-slow pointer-events-none z-0" />
 
       {/* Grid Pattern overlay */}
-      <div className="absolute inset-0 bg-grid-slate-900 pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-slate-900 pointer-events-none z-0" />
 
       {/* Radial overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/30 to-slate-950 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/30 to-slate-950 pointer-events-none z-0" />
 
       <div className="relative max-w-6xl w-full mx-auto px-4 md:px-8 z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -282,8 +286,8 @@ export default function Hero() {
                   onClick={() => !isTerminalTyping && setActiveFile(fileName)}
                   disabled={isTerminalTyping}
                   className={`flex items-center space-x-2 px-4 py-2 border-r border-slate-900/60 transition-colors cursor-pointer ${activeFile === fileName
-                      ? 'bg-slate-900/60 text-indigo-400 border-t-2 border-t-indigo-500 font-semibold'
-                      : 'text-slate-500 hover:text-slate-350 bg-slate-950/20'
+                    ? 'bg-slate-900/60 text-indigo-400 border-t-2 border-t-indigo-500 font-semibold'
+                    : 'text-slate-500 hover:text-slate-350 bg-slate-950/20'
                     }`}
                 >
                   <FileCode className="w-3.5 h-3.5" />
