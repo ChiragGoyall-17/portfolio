@@ -1,5 +1,8 @@
+import { lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
+
+const DeveloperScene3D = lazy(() => import('./DeveloperScene3D'));
 
 const projects = [
   {
@@ -82,6 +85,18 @@ export default function Projects() {
             Full-stack web applications deployed to production, demonstrating clean design, security measures, and database management.
           </p>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.7 }}
+          className="mb-16"
+        >
+          <Suspense fallback={<div className="h-[340px] sm:h-[420px] lg:h-[500px]" />}>
+            <DeveloperScene3D />
+          </Suspense>
+        </motion.div>
 
         {/* Projects Grid */}
         <motion.div 
