@@ -14,7 +14,7 @@ const projects = [
       'Implemented secure auth and session states with Clerk and environment configuration for live deployment.'
     ],
     image: '/quickai.png',
-    github: 'https://github.com/ChiragGoyall-17',
+    github: 'https://github.com/ChiragGoyall-17/QuickAI',
     demo: 'https://quickai-frontend-rz6e.onrender.com',
     accent: 'indigo'
   },
@@ -30,7 +30,7 @@ const projects = [
       'Deployed session-based authentication using Passport.js and hashed passwords for robust user security.'
     ],
     image: '/wanderlust.png',
-    github: 'https://github.com/ChiragGoyall-17',
+    github: 'https://github.com/ChiragGoyall-17/WandurLust',
     demo: 'https://chirag-project-onp6.onrender.com/listings',
     accent: 'emerald'
   }
